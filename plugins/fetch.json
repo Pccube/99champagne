@@ -1,0 +1,89 @@
+{
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cz.blocshop.socketsforcordova": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/blocshop/sockets-for-cordova",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-chrome-apps-sockets-udp": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MobileChromeApps/cordova-plugin-chrome-apps-sockets-udp",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-chrome-apps-common": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-chrome-apps-common@1"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "edu.uic.travelmidwest.cordova.udptransmit": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/applejacko/cordova-plugin-uic-udp",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-device": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-device",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-geolocation",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-compat": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-compat"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "com.vliesaputra.deviceinformation": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vliesaputra/DeviceInformationPlugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.plugin.imei": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aquto/cordova-plugin-imei",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}

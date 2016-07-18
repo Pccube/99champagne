@@ -1,0 +1,43 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "cz.blocshop.socketsforcordova": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "cordova-plugin-chrome-apps-sockets-udp": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "edu.uic.travelmidwest.cordova.udptransmit": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "com.vliesaputra.deviceinformation": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "com.plugin.imei": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-chrome-apps-common": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.pccube_99Champagne"
+        }
+    }
+}
