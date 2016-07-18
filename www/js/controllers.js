@@ -19,22 +19,46 @@ angular.module('app.controllers', [])
 
 .controller('pageCtrl', function($scope,$state) {
             $scope.login = function(){
-              udptransmit.initialize("viasky.dnsalias.com",41200);
-              function UDPTransmitterInitializationSuccess(success) {
-	                 console.log(success);
-	            }
 
-	             function UDPTransmitterInitializationError(error) {
-	                 console.log(error);
-	            }
-              udptransmit.sendMessage("23542_SLU_0_0_A_0_4.2_0_0_20170101010101_2.352222_48.856614_0_0_0_\n");
-              function UDPTransmissionSuccess(success) {
-	                 console.log(success);
-	            }
+              var onSuccess = function(position) {
+                function UDPTransmitterInitializationSuccess(success) {
+  	                 console.log(success);
+  	            };
 
-	            function UDPTransmissionError(error) {
-	                 console.log(error);
-	            }
+  	             function UDPTransmitterInitializationError(error) {
+  	                 console.log(error);
+  	            };
+
+                udptransmit.initialize("viasky.dnsalias.com",41200);
+
+                var currentdate = new Date();
+                var dd = currentdate.getDate();
+                var mm = currentdate.getMonth()+1;
+                var hh = currentdate.getHours();
+                var m = currentdate.getMinutes();
+                var ss = currentdate.getSeconds();
+                if(dd<10){dd='0'+dd}
+                if(mm<10){mm='0'+mm}
+                if(hh<10){hh = '0'+hh}
+                if(m<10){m = '0'+m}
+                if(ss<10){ss = '0'+ss}
+                var datetime = currentdate.getFullYear().toString() + mm.toString() + dd.toString() + hh.toString() + m.toString() + ss.toString();
+                packet = device.uuid+"_SLU_0_0_A_0_4.2_0_0_"+datetime+"_"+position.coords.longitude+"_"+position.coords.latitude+"_0_0_0_\n";
+                function UDPTransmissionSuccess(success) {
+  	                 console.log(success);
+  	            }
+
+  	            function UDPTransmissionError(error) {
+  	                 console.log(error);
+  	            }
+                udptransmit.sendMessage(packet);
+              };
+
+              var onError = function() {
+                  alert('onError!');
+              };
+
+              navigator.geolocation.getCurrentPosition(onSuccess, onError);
               $state.go("side-menu21.logo");
             };
 })
