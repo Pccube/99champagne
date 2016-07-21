@@ -7,99 +7,105 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-        
-        
-      .state('side-menu21.logo', {
-    url: '/page1',
-    views: {
-        'side-menu21': {
-        	templateUrl: 'templates/home.html',
-            controller: 'logoCtrl'
-        }
-      }
-  })
-        
-    
-  
-  .state('side-menu21.locali',
-  {
-	  url: '/page7',
-	  views:
-	  {
-		  'side-menu21':
-		      {
-		    	  templateUrl: 'templates/locali.html',
-		          controller: 'localiCtrl'
-		      }
-      }
-  })
-  
-   .state('side-menu21.news', {
-    url: '/pageNews',
-    views: {
-        'side-menu21': {
-        	templateUrl: 'templates/news.html',
-            controller: 'newsCtrl'
-        }
-      }
-  })
-  
-      .state('side-menu21.maison', {
-    url: '/page6',
-    views: {
-        'side-menu21': {
-        	templateUrl: 'templates/maison.html',
-            controller: 'maisonCtrl'
-        }
-      }
-  })
-  
-    .state('side-menu21.couvee', {
-    url: '/couveePage',
-    views: {
-        'side-menu21': {
-        	templateUrl: 'templates/couvee.html',
-            controller: 'couveeCtrl'
-        }
-      }
-  })
-    
-        .state('registrati', {
-               url: '/reg',
-               
-               templateUrl: 'templates/registrati.html',
-               controller: 'registratiCtrl'
-               
-               })
-      
-        .state('backPage', {
-               url: '/reg',
-               
-               templateUrl: 'templates/loginScreen.html',
-               controller: 'backCtrl'
-               
+
+
+        .state('menu.hOME', {
+               url: '/home',
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/hOME.html',
+               controller: 'hOMECtrl'
+               }
+               }
                })
 
-  .state('side-menu21', {
-    url: '/side-menu21',
-    templateUrl: 'templates/side-menu21.html',
-    abstract:true
-  })
+        .state('menu.nEWS', {
+               url: '/news',
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/nEWS.html',
+               controller: 'nEWSCtrl'
+               }
+               }
+               })
 
-  .state('page', {
-    url: '/page4',
-    templateUrl: 'templates/loginScreen.html',
-    controller: 'pageCtrl'
-  })
+        .state('menu.lECHAMPAGNE', {
+               url: '/champagne',
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/lECHAMPAGNE.html',
+               controller: 'lECHAMPAGNECtrl'
+               }
+               }
+               })
 
-  .state('maison', {
-    url: '/page5',
-    templateUrl: 'templates/maison.html',
-    controller: 'maisonCtrl'
-  })
+        .state('menu', {
+               url: '/side-menu21',
+               templateUrl: 'templates/menu.html',
+               abstract:true
+               })
 
-$urlRouterProvider.otherwise('/page4')
-        
+        .state('menu.iLOCALI', {
+               url: '/locali?id',
+               cache: false,
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/iLOCALI.html',
+               controller: 'iLOCALICtrl'
+               }
+               }
+               })
+
+        .state('menu.mYCAVE', {
+               url: '/cave',
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/mYCAVE.html',
+               controller: 'mYCAVECtrl'
+               }
+               }
+               })
+
+        .state('menu.lEMAISON', {
+               url: '/maison',
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/lEMAISON.html',
+               controller: 'lEMAISONCtrl'
+               }
+               }
+               })
+
+        .state('menu.sETTINGS', {
+               url: '/settings',
+               views: {
+               'side-menu21': {
+               templateUrl: 'templates/sETTINGS.html',
+               controller: 'sETTINGSCtrl'
+               }
+               }
+               })
+
+        .state('registrazione', {
+               url: '/registrazione',
+               templateUrl: 'templates/registrazione.html',
+               controller: 'registrazioneCtrl'
+               })
+
+        .state('99Champagne', {
+               url: '/99Champagne',
+               templateUrl: 'templates/99Champagne.html',
+               controller: '99ChampagneCtrl'
+               })
+
+        .state('login', {
+               url: '/login',
+               templateUrl: 'templates/login.html',
+               controller: 'loginCtrl'
+               })
+
+        $urlRouterProvider.otherwise('99Champagne')
+
+
 
 });
-

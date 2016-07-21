@@ -1,124 +1,153 @@
 angular.module('app.controllers', [])
 
-.controller('logoCtrl', function($scope,$state) {
-            $scope.openMaison = function(){
-            $state.go('side-menu21.maison');
-            };
-            $scope.openCouvee = function(){
-            $state.go('side-menu21.couvee');
-            };
+.controller('hOMECtrl', function($scope) {
 
-            $scope.openNews = function(){
-            $state.go('side-menu21.news');
-            };
-
-            $scope.openLocali = function(){
-            $state.go('side-menu21.locali');
-            };
             })
 
-.controller('pageCtrl', function($scope,$state) {
-            $scope.login = function(){
+.controller('nEWSCtrl', function($scope) {
 
-              var onSuccess = function(position) {
-                function UDPTransmitterInitializationSuccess(success) {
-  	                 console.log(success);
-  	            };
+            })
 
-  	             function UDPTransmitterInitializationError(error) {
-  	                 console.log(error);
-  	            };
-
-                udptransmit.initialize("viasky.dnsalias.com",41200);
-
-                var currentdate = new Date();
-                var dd = currentdate.getDate();
-                var mm = currentdate.getMonth()+1;
-                var hh = currentdate.getHours();
-                var m = currentdate.getMinutes();
-                var ss = currentdate.getSeconds();
-                if(dd<10){dd='0'+dd}
-                if(mm<10){mm='0'+mm}
-                if(hh<10){hh = '0'+hh}
-                if(m<10){m = '0'+m}
-                if(ss<10){ss = '0'+ss}
-                var datetime = currentdate.getFullYear().toString() + mm.toString() + dd.toString() + hh.toString() + m.toString() + ss.toString();
-                packet = device.uuid+"_SLU_0_0_A_0_4.2_0_0_"+datetime+"_"+position.coords.longitude+"_"+position.coords.latitude+"_0_0_0_\n";
-                function UDPTransmissionSuccess(success) {
-  	                 console.log(success);
-  	            }
-
-  	            function UDPTransmissionError(error) {
-  	                 console.log(error);
-  	            }
-                udptransmit.sendMessage(packet);
-              };
-
-              var onError = function() {
-                  alert('onError!');
-              };
-
-              navigator.geolocation.getCurrentPosition(onSuccess, onError);
-              $state.go("side-menu21.logo");
-            };
+.controller('lECHAMPAGNECtrl', function($scope,$state, $cordovaGeolocation) {
 })
 
-.controller('registratiCtrl', function($scope) {
+.controller('iLOCALICtrl', function($scope,$state, $cordovaGeolocation, $stateParams) {
+  function panTo(map, dest, delay) {
+              var GOOGLE_PAN_DELAY = 30,
+              /* the native Google Maps milliseconds */
+                  cycles = delay / GOOGLE_PAN_DELAY,
+                  interval = delay / cycles,
+                  origin = map.getCenter(),
+                  waypoints = [],
+                  temp,
+                  step,
+                  lat,
+                  lng;
 
+              // compute the change in lat/long, and divide across N cycles
+              lat = (dest.lat() - origin.lat()) / cycles;
+              lng = (dest.lng() - origin.lng()) / cycles;
+
+              // starting at origin, add N-1 intermediate waypoints that are equidistance apart
+              temp = origin;
+              for (var i = 0; i < cycles - 1; i++) {
+                  step = cycles / ((cycles - i)*(cycles - i));
+                  temp = new google.maps.LatLng(temp.lat() + (lat * step), temp.lng() + (lng * step));
+                  waypoints.push(temp);
+              }
+              // make sure the last waypoint is the actual dest
+              waypoints.push(dest);
+
+              function pan() {
+                  var waypoint;
+
+                  if (waypoints.length === 0) return;
+
+                  waypoint = waypoints.shift();
+
+                  map.panTo(waypoint);
+
+                  window.setTimeout(pan, interval);
+              }
+
+              pan();
+          };
+
+  $scope.champagne = function(){
+    panTo($scope.map,new google.maps.LatLng(46.227638,2.213749),2000); // Pan map to that position
+  }
+
+  $scope.localize = function(){
+      var options = {timeout: 10000, enableHighAccuracy: true};
+      $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+          var latLngCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          $scope.marker.setMap(null);
+          $scope.marker = new google.maps.Marker({
+              map: $scope.map,
+              animation: google.maps.Animation.DROP,
+              position: latLngCenter
+          });
+          $scope.marker.setIcon('http://google-maps-icons.googlecode.com/files/sailboat-tourism.png');
+          panTo($scope.map,latLngCenter,2000); // Pan map to that position
+      });
+  };
+
+  $scope.$on('$ionicView.enter', function() {
+    var options = {timeout: 10000, enableHighAccuracy: true};
+
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+      if(id == 1)
+        var latLngCenter = new google.maps.LatLng(46.227638,2.213749)
+      else
+        var latLngCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var mapOptions = {
+        center: latLngCenter,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var circle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: $scope.map,
+      center: new google.maps.LatLng(46.227638,2.213749),
+      radius: 200
+    });
+    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+
+            for(var i=0, len=5; i < len; i++){
+                var task = {
+                    "latitude": position.coords.latitude+(i*0.005),
+                    "longitude": position.coords.longitude+(i*0.005),
+                    "description": "Ebuuu"
+                };
+                var latLng = new google.maps.LatLng(task.latitude, task.longitude);
+                var marker = new google.maps.Marker({
+                    map: $scope.map,
+                    animation: google.maps.Animation.DROP,
+                    position: latLng
+                });
+                if(i==0){
+                  marker.setIcon('http://google-maps-icons.googlecode.com/files/sailboat-tourism.png');
+                  $scope.marker = marker;
+                }
+
+            };
+
+  }, function(error){
+    console.log("Could not get location");
+  });
+  });
+  var id = $stateParams.id;
+    if(id!=1)
+      $scope.localize();
+  });
 })
 
-.controller('backCtrl', function($scope) {
+.controller('mYCAVECtrl', function($scope) {
 
-})
-
-.controller('maisonCtrl', function($state,$scope,$http) {
-            $http.defaults.headers.common.Authorization = 'pccube admin';
-            $http({
-                  method: 'GET',
-                  url: 'http://87.241.28.229:39080/99champagne/api/v1/content/462',
-                  headers: {'Accept':'application/json'}
-                  }).then(function successCallback(response) {
-                          $scope.data = response.data;
-                          $scope.indirizzo = response.data.field_indirizzo.und[0].value;
-                          $scope.descr = response.data.field_storia_e_stile.und[0].value;
-                          });
             })
 
-.controller('couveeCtrl', function($state,$scope,$http) {
-            $http.defaults.headers.common.Authorization = 'pccube admin';
-            $http({
-                  method: 'GET',
-                  url: 'http://87.241.28.229:39080/99champagne/api/v1/content/867',
-                  headers: {'Accept':'application/json'}
-                  }).then(function successCallback(response) {
-                          $scope.data = response.data;
-                          $scope.degustazione = response.data.field_degustazione.und[0].value;
-                          });
+.controller('lEMAISONCtrl', function($scope) {
+
             })
 
-.controller('localiCtrl', function($state,$scope,$http) {
-            $http.defaults.headers.common.Authorization = 'pccube admin';
-            $http({
-                  method: 'GET',
-                  url: 'http://87.241.28.229:39080/99champagne/api/v1/content/882',
-                  headers: {'Accept':'application/json'}
-                  }).then(function successCallback(response) {
-                          $scope.title= response.data.title;
-                          $scope.facebook = response.data.field_fb_link.und[0].value;
-                          $scope.indirizzo = response.data.field_indirizzo_locale.und[0].value;
+.controller('sETTINGSCtrl', function($scope) {
 
-
-                          });
             })
 
-.controller('newsCtrl', function($state,$scope,$http) {
-            $http.defaults.headers.common.Authorization = 'pccube admin';
-            $http({
-                  method: 'GET',
-                  url: 'http://87.241.28.229:39080/99champagne/api/v1/content/973',
-                  headers: {'Accept':'application/json'}
-                  }).then(function successCallback(response) {
-                          $scope.data = response.data;
-                          $scope.testo = response.data.body.und[0].value;
-                          });
-            });
+.controller('registrazioneCtrl', function($scope) {
+
+            })
+
+.controller('99ChampagneCtrl', function($scope) {
+
+            })
+
+.controller('loginCtrl', function($scope) {
+
+});
